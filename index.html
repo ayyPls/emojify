@@ -6,101 +6,52 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="emoji-mappings.js"></script>
     <script type="text/javascript" src="emoji_mappings_ru.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </head>
 
 <body>
-
+    <div class="jumbotron"
+        style="background-color: rgb(0, 98, 204); font-family:Arial Black, Gadget, sans-serif; text-align: center; letter-spacing: 0px; color: rgb(255, 255, 255);">
+        <h1 class="display-3">Emojify!</h1>
+        <p class="lead">add👈👈👈 emojies⁉⁉; to💦👉💦 your💕😍 text📲😱</p>
+    </div>
     <div class="container">
-
-        <div class="jumbotron"
-            style="background-color: rgb(0, 98, 204); font-family:Arial Black, Gadget, sans-serif; text-align: center; letter-spacing: 0px; color: rgb(255, 255, 255);">
-            <h1 class="display-3">Emojify!</h1>
-            <p class="lead">add👈👈👈 emojies⁉⁉; to💦👉💦 your💕😍 text📲😱</p>
-            <p></p>
-        </div>
-
         <div class="form-group"></div>
         <div class="container" style="display: block; text-align: left; position: static; opacity: 1; float: none;">
-            <div class="m-5">
-                <div class="form-group"><label style="font-size: 1.5rem;display: block;" for="inputText">Input text:</label>
-                    <textarea class="form-control" name="inputText" id="inputText" placeholder="enter your text" style="resize: none; width: 100%; height: 20%;
-                    box-sizing: border-box;" autofocus></textarea>
-                    <div class="row" style="padding: 20px;">
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-lg btn-primary"
-                                style="text-align: center; position: static; width: 20%; right: auto;"
-                                onclick="emojify()">Emojify!</button>
-                        </div>
-                    </div>
-                    <label style="font-size: 1.5rem; display: block;">
-                        Emojified
-                        text:
-                    </label>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" name="outputText" id="outputText" style="resize: none; width: 100%;height: 20%;
-                    box-sizing: border-box;" readonly></textarea>
-                    <div class="row" style="padding:20px;">
-                        <div class="col text-center">
-                            <button type="button" class="btn btn-outline-info btn-lg"
-                                onclick="copyToClipboard()">Copy!</button>
-                        </div>
-                    </div>
 
+            <div class="form-group"><label style="font-size: 1.5rem;display: block;" for="inputText">Input
+                    text:</label>
+                <textarea class="form-control" name="inputText" id="inputText" placeholder="enter your text" style="resize: none; width: 100%; height: 20%;
+                    box-sizing: border-box;font-size:1.5rem;" autofocus></textarea>
+                <div class="row" style="padding: 20px;">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-lg btn-primary"
+                            style="text-align: center; position: static; width: 20%; right: auto;"
+                            onclick="emojify()">Emojify!</button>
+                    </div>
                 </div>
+                <label style="font-size: 1.5rem; display: block;">
+                    Emojified text:
+                </label>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="outputText" id="outputText" style="resize: none; width: 100%;height: 20%;
+                    box-sizing: border-box; font-size:1.5rem;" readonly></textarea>
+                <div class="row" style="padding:20px;">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-outline-info btn-lg"
+                            onclick="copyToClipboard()">Copy!</button>
+                    </div>
+                </div>
+
             </div>
         </div>
+
     </div>
     </div>
 </body>
-
-<script>
-    function copyToClipboard(str) {
-        document.getElementById("outputText").select();
-        document.execCommand("copy");
-    }
-    function emojify() {
-        let inputText = $('#inputText').val().trim().split(' ') //split by words
-        resultArray = []
-        inputText.forEach(element => {
-            let word = element
-            let emojiBlock = getEmoji(formatWord(element.toLowerCase())) //get emoji to this word
-            resultArray.push(word + emojiBlock)
-        });
-        let result = resultArray.join(' ')
-        return document.getElementById('outputText').innerHTML = result
-    }
-    function getEmoji(word) {
-        if (wordExist(word)) {
-            let emoji = ''
-            for (let i = 0; i < getRand(); i++) {
-                emoji += getRandomEmoji(getLang(word)[word])
-            }
-            return emoji
-        }
-        else return ''
-    }
-    function getRandomEmoji(emojiArray) {
-        return emojiArray[Math.floor(Math.random() * emojiArray.length)]; //return 1 random emoji
-    }
-    function getRand() {
-        return Math.floor(Math.random() * 3) + 1; //random number of emoji between 1 and 3
-    }
-    function formatWord(word) { //return word without punctuation marks
-        return word.replace(/[,.?!\t\n\r]{1,}/g, '')
-    }
-    function getLang(word) { //get word language and which emoji_map to use
-        if (EMOJI_MAPPINGS[word]) return EMOJI_MAPPINGS
-        if (EMOJI_MAPPINGS_RU[word]) return EMOJI_MAPPINGS_RU
-    }
-    function wordExist(word) {
-        if (EMOJI_MAPPINGS[word] || EMOJI_MAPPINGS_RU[word]) return true
-    }
-
-</script>
 
 </html>
