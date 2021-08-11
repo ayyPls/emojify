@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>Emojify</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="emoji-mappings.js"></script>
+    <script type="text/javascript" src="emoji_mappings_ru.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" align="center">
+            <h1>Emojify!</h1>
+            <p>Add👈👈👈 emojies⁉ to💦 your⬆ text🔠😳 (en/ru)</p>
+        </div>
+        <div class="row">
+            <div class="input col-sm-6" style="height:12rem;">
+                <textarea name="inputText" id="inputText" placeholder="enter your text" style="resize: none; width: 100%; height: 100%;
+                    box-sizing: border-box;" autofocus></textarea>
+            </div>
+            <div class="output col-sm-6">
+                <textarea name="outputText" id="outputText" style="resize: none; width: 100%;height: 100%;
+                box-sizing: border-box;" readonly></textarea>
+            </div>
+        </div>
+        <div class="row" style="padding: 20px;">
+            <div class="col-sm-6" align="center">
+                <button type="submit" class="d-flex p-1 btn-success" onclick="emojify()">Emojify!</button>
+            </div>
+            <div class="col-sm-6" align="center">
+                <button type="submit" class="d-flex p-1 btn-alert" id="copyButton"
+                    onclick="copyToClipboard()">Copy</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+    function copyToClipboard(str) {
+        document.getElementById("outputText").select();
+        document.execCommand("copy");
+    }
+    function emojify() {
+        let inputText = $('#inputText').val().trim().split(' ') //split by words
+        resultArray = []
+        inputText.forEach(element => {
+            let word = element
+            let emojiBlock = getEmoji(formatWord(element.toLowerCase())) //get emoji to this word
+            resultArray.push(word + emojiBlock)
+        });
+        let result = resultArray.join(' ')
+        return document.getElementById('outputText').innerHTML = result
+    }
+    function getEmoji(word) {
+        if (wordExist(word)) {
+            let emoji = ''
+            for (let i = 0; i < getRand(); i++) {
+                emoji += getRandomEmoji(getLang(word)[word])
+            }
+            return emoji
+        }
+        else return ''
+    }
+    function getRandomEmoji(emojiArray) {
+        return emojiArray[Math.floor(Math.random() * emojiArray.length)]; //return 1 random emoji
+    }
+    function getRand() {
+        return Math.floor(Math.random() * 3) + 1; //random number of emoji between 1 and 3
+    }
+    function formatWord(word) { //return word without punctuation marks
+        return word.replace(/[,.?!\t\n\r]{1,}/g, '')
+    }
+    function getLang(word) { //get word language and which emoji_map to use
+        if (EMOJI_MAPPINGS[word]) return EMOJI_MAPPINGS
+        if (EMOJI_MAPPINGS_RU[word]) return EMOJI_MAPPINGS_RU
+    }
+    function wordExist(word) {
+        if (EMOJI_MAPPINGS[word] || EMOJI_MAPPINGS_RU[word]) return true
+    }
+
+</script>
+
+</html>
