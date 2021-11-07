@@ -1,6 +1,10 @@
 function copyToClipboard(str) {
     document.getElementById("outputText").select();
     document.execCommand("copy");
+    window.getSelection().removeAllRanges();
+    $('#copyBtn').text('Copied!')
+    // document.getElementById('copyBtn').insertAdjacentHTML('beforeBegin', '<div id="copyMessage">Copied!</div>');
+    setTimeout(_ => $('#copyBtn').text('Copy!'), 1000);
 }
 function emojify() {
     let inputText = $('#inputText').val().trim().split(' ') //split by words

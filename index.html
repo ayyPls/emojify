@@ -2,14 +2,15 @@
 
 <head>
     <title>Emojify!</title>
-    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="./android-chrome-192x192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" media="all">
     <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script type="text/javascript" src="emoji-mappings.js"></script>
-    <script type="text/javascript" src="emoji_mappings_ru.js"></script>
+    <script type="text/javascript" src="emoji-map/emoji-mappings.js"></script>
+    <script type="text/javascript" src="emoji-map/emoji_mappings_ru.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </head>
 
@@ -35,12 +36,11 @@
             </label>
             <textarea class="form-control" name="outputText" id="outputText" readonly></textarea>
             <div class="col text-center">
-                <button type="button" class="btn btn-outline-info btn-lg" onclick="copyToClipboard()">Copy!</button>
+                <button type="button" id="copyBtn" class="btn btn-outline-info btn-lg" onclick="copyToClipboard()">Copy!</button>
             </div>
 
         </div>
 
-    </div>
     </div>
 </body>
 
