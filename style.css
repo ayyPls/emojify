@@ -33,11 +33,11 @@
     font-size:1.5rem;
 }
 #copyBtn{
-    color: #007BFF;
+    color: #007BFF !important;
 }
 #copyBtn:hover{
     color: white;
-    background-color: #007BFF;
+    background-color: #007BFF !important;
 }
 
 /* styles for tablet */
